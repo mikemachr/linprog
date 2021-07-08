@@ -1,0 +1,112 @@
+<html>  
+ <head>  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Linear programming solver</title>  
+
+    
+    
+    
+<style>
+.input-wrapper div {
+    margin-bottom: 10px;
+}
+</style>
+
+
+</head>  
+ <body>  
+  <div style="width:85%;padding:50px;">  
+    <h2>Linear programming solver</h2>  
+    <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+          overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+          font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg .tg-0lax{text-align:left;vertical-align:top}
+        </style>
+        <table class="tg">
+        <thead>
+          <tr>
+            <th class="tg-0lax">Solution:</th>
+            <th class="tg-0lax">{{ message.fun }}</th>
+          </tr>
+          <tr>
+            <th class="tg-0lax">Vars</th>
+            <th class="tg-0lax">{{ message.x }}</th>
+          </tr>
+        </thead>
+        </table>
+
+    
+    <div class="input-wrapper">
+        <form method="POST">
+            <!--Handles objective
+            <div>
+                Number of variables
+                <input type="text" name="N_vars" value=""/>
+                Number of restrictions
+                <input type="text" name="N_rest" value=""/>
+                
+                    <input type="submit" name="cmdsubmit" value="Go">
+                
+            </div>
+            -->    
+            <div>
+                target function
+
+                <select name="minmax">
+                  <option value="minimize">Minimize</option>
+                  <option value="maximice">Maximice</option>
+                </select>
+
+                {%for i in range(N_vars)%}
+                <input type="text" size="2" name="func[]" value="" placeholder="x{{i+1}}"/>
+                {% if i+1 < N_vars%}
+                <label>+</label>
+                {%endif%}
+                {%endfor%}
+
+            </div>
+            {% for row in range(N_rest) %}
+            <div>
+            
+            {%for i in range(N_vars)%}
+            <input type="text" size="2" name="coef[]" value="" placeholder="x{{i+1}}"/>
+            {% if i+1 < N_vars%}
+            <label>+</label>
+            {%endif%}
+            {%endfor%}
+            <select name="type[]">
+                <option value="eq">=</option>
+                <option value="leq"><=</option>
+                <option value="geq" >>=</option>
+              </select>
+              <input type="text" size="1" name="obj[]" value="" placeholder="0"/>    
+            </div>
+            {% endfor %}
+            <div>
+              If a given bound is not required, type None (case sensitive)
+              {%for row in range(N_vars) %}
+              <div>
+                <input type="text" size="1" name="l_bounds[]"><label ><=</label>
+                <label >x{{row+1}}</label> 
+                <label ><=</label><input type="text" size="1" name="r_bounds[]">
+              </div>
+              {%endfor%}
+            </div>
+
+            <div>
+                
+              <input type="submit" name="cmdsubmit" class="btn btn-primary" value="Calculate">
+            
+            </div>
+        </form>
+            
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ </body>  
+</html>
