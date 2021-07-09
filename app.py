@@ -1,6 +1,6 @@
 from scipy.optimize import linprog
 from numpy import reshape
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect,url_for
 
 
 
@@ -8,8 +8,24 @@ app= Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    _N_vars=5
-    _N_rest=5
+    if request.method=="POST":
+        _N_vars=int(request.form.get('N_vars'))
+        _N_rest=int(request.form.get('N_rest'))
+        #return redirect(url_for('solver'),_N_vars,_N_rest)
+        return render_template('solver.html',N_vars=_N_vars,N_rest=_N_rest)
+
+    return render_template('index.html')
+
+
+
+@app.route('/solution', methods=['GET', 'POST'])
+def solution(sol):
+    return render_template('solution.html',solution=sol)
+
+
+
+@app.route('/solver', methods=['GET', 'POST'])
+def solver():    
     A_ub=[]
     A_eq=[]
     B_ub=[]
@@ -40,7 +56,7 @@ def index():
         #inverts sign of target function if objective is to maximice
         if problem_type=='maximice':
             z=[float(i)*-1 for i in z]
-        coef=reshape(coef, (_N_rest,_N_vars))
+        coef=reshape(coef, (len(obj),len(z)))
         coef=coef.tolist()
         #if you only want to change number of variables or restrictions, leave everything else blank
         if len(coef)>0:
@@ -69,7 +85,9 @@ def index():
             if len(A_ub)==0:
                 sol=linprog(z, A_eq=A_eq, b_eq=B_eq,method='revised simplex',bounds=bounds)
                 print(sol)
-    return render_template('index.html',N_vars=_N_vars,N_rest=_N_rest,message=sol)
+            return solution(sol)
+    return render_template('solver.html',N_vars=len(z),N_rest=len(obj))
+    #return redirect(url_for('solver'))
 
 
 
