@@ -4,6 +4,5 @@ problems in the form Ax=B,Ax>=B, and Ax<=B.
 
 Requirements are listed on requirements.txt
 
-As of this moment the number of variables and restrictions cannot be ineractively changed, but this can be done changing the 
-variables _N_vars and _N_rest on app.py=>index. 
+All fields must be filled during operation, otherwise calculation will fail
 
