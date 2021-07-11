@@ -46,11 +46,11 @@ def solver():
         bounds=[]
         for i in range(len(left_bounds)):
             if left_bounds[i]=='None' and right_bounds[i]!='None':
-                bounds.append([None, right_bounds[i]])
+                bounds.append([None, float(Fraction(right_bounds[i]))])
             if left_bounds[i]!='None' and right_bounds[i]=='None':
-                bounds.append([left_bounds[i], None])
+                bounds.append([float(Fraction(left_bounds[i])), None])
             if left_bounds[i]!='None' and right_bounds[i]!='None':
-                bounds.append([left_bounds[i], right_bounds[i]])
+                bounds.append([float(Fraction(left_bounds[i])), float(Fraction(right_bounds[i]))])
             
 
         #inverts sign of target function if objective is to maximice
@@ -87,7 +87,6 @@ def solver():
                 print(sol)
             return solution(sol)
     return render_template('solver.html',N_vars=len(z),N_rest=len(obj))
-    #return redirect(url_for('solver'))
 
 
 
@@ -106,4 +105,4 @@ def solver():
 
  
 if __name__ == '__main__':    
-    app.run(debug=True)
+    app.run(debug=False)
