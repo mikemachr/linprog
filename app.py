@@ -1,7 +1,7 @@
 from scipy.optimize import linprog
 from numpy import reshape
-from flask import Flask, render_template, request, redirect,url_for
-
+from flask import Flask, render_template, request
+from fractions import Fraction
 
 
 app= Flask(__name__)
@@ -33,12 +33,12 @@ def solver():
     sol=0
     if request.method == 'POST':
         coef = request.form.getlist('coef[]')
-        coef=[float(i) for i in coef]
+        coef=[float(Fraction(i)) for i in coef]
         type = request.form.getlist('type[]')
         obj = request.form.getlist('obj[]')
-        obj=[float(i) for i in obj]
+        obj=[float(Fraction(i)) for i in obj]
         z = request.form.getlist('func[]')
-        z=[float(i) for i in z]
+        z=[float(Fraction(i)) for i in z]
         problem_type=request.form.get('minmax')
         left_bounds=request.form.getlist('l_bounds[]')
         right_bounds=request.form.getlist('r_bounds[]')
