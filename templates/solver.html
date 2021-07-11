@@ -33,7 +33,7 @@
                 </select>
 
                 {%for i in range(N_vars)%}
-                <input type="text" size="2" name="func[]" value="" placeholder="x{{i+1}}"/>
+                <input type="text" size="2" name="func[]" value="" placeholder="a/b"/>x{{i+1}}
                 {% if i+1 < N_vars%}
                 <label>+</label>
                 {%endif%}
@@ -44,7 +44,7 @@
             <div>
             
             {%for i in range(N_vars)%}
-            <input type="text" size="2" name="coef[]" value="" placeholder="x{{i+1}}"/>
+            <input type="text" size="2" name="coef[]" value="" placeholder="a/b"/>x{{i+1}}
             {% if i+1 < N_vars%}
             <label>+</label>
             {%endif%}
@@ -61,9 +61,9 @@
               If a given bound is not required, type None (case sensitive)
               {%for row in range(N_vars) %}
               <div>
-                <input type="text" size="1" name="l_bounds[]"><label ><=</label>
+                <input type="text" size="1" name="l_bounds[]" placeholder="a/b"><label ><=</label>
                 <label >x{{row+1}}</label> 
-                <label ><=</label><input type="text" size="1" name="r_bounds[]">
+                <label ><=</label><input type="text" size="1" name="r_bounds[]" placeholder="a/b">
               </div>
               {%endfor%}
             </div>

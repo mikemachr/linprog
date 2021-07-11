@@ -21,13 +21,24 @@
             <th class="tg-0lax">z={{ solution.fun }}</th>
           </tr>
           <tr>
-            <th class="tg-0lax">Vars</th>
             <th class="tg-0lax">
-                {% for i in range(solution.x|length) %}
-                x{{i+1}}={{solution.x[i]}}
-                {%endfor%}
+              Vars
+            </th>
+            <th class="tg-0lax">
+                Value
             </th>
           </tr>
+          {% for i in range(solution.x|length) %}
+          <tr>
+            <th>
+            x{{i+1}}
+                
+            </th>
+            <th>
+              {{solution.x[i]}}
+            </th>
+          </tr>
+          {%endfor%}
         </thead>
         </table>
 
