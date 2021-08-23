@@ -54,8 +54,10 @@ def solver():
             
 
         #inverts sign of target function if objective is to maximice
+        pos=1
         if problem_type=='maximice':
             z=[float(i)*-1 for i in z]
+            pos=-1
         coef=reshape(coef, (len(obj),len(z)))
         coef=coef.tolist()
         #if you only want to change number of variables or restrictions, leave everything else blank
@@ -85,6 +87,7 @@ def solver():
             if len(A_ub)==0:
                 sol=linprog(z, A_eq=A_eq, b_eq=B_eq,method='revised simplex',bounds=bounds)
                 print(sol)
+            sol.fun=sol.fun*pos
             return solution(sol)
     return render_template('solver.html',N_vars=len(z),N_rest=len(obj))
 
